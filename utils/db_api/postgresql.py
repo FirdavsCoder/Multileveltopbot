@@ -74,11 +74,16 @@ class Database:
 # CHANNELS TABLE QUERIES
     async def add_channel(self, channel_id, channel_link):
         sql = "INSERT INTO channels (channel_id, channel_link) VALUES ($1, $2) returning *"
-        return await self.execute(sql, channel_id, channel_link)
+        return await self.execute(sql, channel_id, channel_link, execute=True)
 
     async def select_all_channels(self):
         sql = "SELECT * FROM channels"
         return await self.execute(sql, fetch=True)
+
+    async def select_channels(self, **kwargs):
+        sql = "SELECT * FROM channels WHERE "
+        sql, parameters = self.format_args(sql, parameters=kwargs)
+        return await self.execute(sql, *parameters, fetchrow=True)
 
     async def select_channel(self, **kwargs):
         sql = "SELECT * FROM channels WHERE "
