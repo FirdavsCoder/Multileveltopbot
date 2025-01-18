@@ -102,10 +102,8 @@ class AdminKeyboards():
 
     async def force_settings(self):
         keyboard = InlineKeyboardMarkup()
-        keyboard.add(InlineKeyboardButton(text='📢 Kanallar', callback_data='channels'),
-                     InlineKeyboardButton(text='🤖 Botlar', callback_data='bots'))
+        keyboard.add(InlineKeyboardButton(text='📢 Kanallar', callback_data='channels'))
         status = await db.select_settings()
-        print(status)
         if status['value'] == 'True':
             text = '✅ Majburiy a\'zolik | Yoqilgan'
         else:

@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     id         SERIAL PRIMARY KEY,
     user_id    BIGINT NOT NULL unique,
-    status user_status_enum DEFAULT 'active',
+    status VARCHAR DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS settings
     value      VARCHAR NOT NULL,
     created_at TIMESTAMP default CURRENT_TIMESTAMP
 );
+
+INSERT INTO settings (name, value) VALUES ('channels', 'false');
 
 CREATE TABLE IF NOT EXISTS join_requests
 (

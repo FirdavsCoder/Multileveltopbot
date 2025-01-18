@@ -113,30 +113,30 @@ async def channels_list_handler(call: types.CallbackQuery):
         await call.answer("Kanallar mavjud emas!", show_alert=True)
 
 
-@dp.callback_query_handler(text='bots_list', user_id=ADMINS, chat_type='private', state='*')
-async def channels_list_handler(call: types.CallbackQuery):
-    result = await adminKeyboard.bots_list()
-    if result:
-        await call.message.edit_text("Botlar", reply_markup=result)
-    else:
-        await call.answer("botlar mavjud emas!", show_alert=True)
+# @dp.callback_query_handler(text='bots_list', user_id=ADMINS, chat_type='private', state='*')
+# async def channels_list_handler(call: types.CallbackQuery):
+#     result = await adminKeyboard.bots_list()
+#     if result:
+#         await call.message.edit_text("Botlar", reply_markup=result)
+#     else:
+#         await call.answer("botlar mavjud emas!", show_alert=True)
 
 
-@dp.callback_query_handler(text='delbot', user_id=ADMINS, chat_type='private', state='*')
-async def channels_list_handler(call: types.CallbackQuery):
-    result = await adminKeyboard.delete_bots()
-    if result:
-        await call.message.edit_text("Ochirmoqchi bolgan botingiz ustiga 1marta bosing", reply_markup=result)
-    else:
-        await call.answer("botlar mavjud emas!", show_alert=True)
+# @dp.callback_query_handler(text='delbot', user_id=ADMINS, chat_type='private', state='*')
+# async def channels_list_handler(call: types.CallbackQuery):
+#     result = await adminKeyboard.delete_bots()
+#     if result:
+#         await call.message.edit_text("Ochirmoqchi bolgan botingiz ustiga 1marta bosing", reply_markup=result)
+#     else:
+#         await call.answer("botlar mavjud emas!", show_alert=True)
 
 
-@dp.callback_query_handler(lambda c: c.data.startswith('dd_'), user_id=ADMINS, chat_type='private',
-                           state='*')
-async def delete_channel_handler(call: types.CallbackQuery):
-    channel_id = call.data.replace('dd_', '')
-    await db.delete_bot(id=int(channel_id))
-    await call.message.edit_text("BOT OCHIRILDI!", reply_markup=await adminKeyboard.bots_keyboard())
+# @dp.callback_query_handler(lambda c: c.data.startswith('dd_'), user_id=ADMINS, chat_type='private',
+#                            state='*')
+# async def delete_channel_handler(call: types.CallbackQuery):
+#     channel_id = call.data.replace('dd_', '')
+#     await db.delete_bot(id=int(channel_id))
+#     await call.message.edit_text("BOT OCHIRILDI!", reply_markup=await adminKeyboard.bots_keyboard())
 
 
 @dp.callback_query_handler(lambda c: c.data.startswith('channel_'), user_id=ADMINS, chat_type='private', state='*')
@@ -191,9 +191,9 @@ async def force_settings_handler(call: types.CallbackQuery):
     await call.message.edit_text("<b>Kerakli bo'limni tanlang:</b>", reply_markup=await adminKeyboard.force_settings())
 
 
-@dp.callback_query_handler(text='bots', state='*', chat_type='private', user_id=ADMINS)
-async def bots_handler(call: types.CallbackQuery):
-    await call.message.edit_text("<b>Kerakli bo'limni tanlang:</b>", reply_markup=await adminKeyboard.bots_keyboard())
+# @dp.callback_query_handler(text='bots', state='*', chat_type='private', user_id=ADMINS)
+# async def bots_handler(call: types.CallbackQuery):
+#     await call.message.edit_text("<b>Kerakli bo'limni tanlang:</b>", reply_markup=await adminKeyboard.bots_keyboard())
 
 
 @dp.callback_query_handler(text='bot_add', state='*', chat_type='private', user_id=ADMINS)
