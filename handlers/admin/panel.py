@@ -608,7 +608,7 @@ async def send_users_ads_handler(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(state='*', text='buttons_edit', user_id=ADMINS, chat_type='private')
 async def buttons_edit_handler(call: types.CallbackQuery, state: FSMContext):
     await state.finish()
-    await call.message.edit_text("Kerakli bolimni tanlang:", reply_markup= await adminKeyboard.buttons_edit())
+    await call.message.edit_text("Kerakli bolimni tanlang:", reply_markup= await adminKeyboard.buttons_edit('button_edit'))
 
 
 @dp.callback_query_handler(state='*', text='edit_real_exam_questions', user_id=ADMINS, chat_type='private')
@@ -743,7 +743,7 @@ async def get_url(message: types.Message, state: FSMContext):
     data = await state.get_data()
     button_key = data.get("button_key")
     await db.add_resource(button_key=button_key, url=url)
-    await message.answer("Tugma muvaffaqiyatli o'zgartirildi", reply_markup=await adminKeyboard.buttons_edit())
+    await message.answer("Tugma muvaffaqiyatli o'zgartirildi", reply_markup=await adminKeyboard.buttons_edit('button_edit'))
     await state.finish()
 
 @dp.callback_query_handler(text_contains="delete_resource", state="*")
