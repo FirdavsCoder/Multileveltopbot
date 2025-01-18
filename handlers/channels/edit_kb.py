@@ -17,7 +17,7 @@ async def channel_post(message: types.Message):
 async def add_from_channel(call: types.CallbackQuery):
     button_key = call.data.split(':')[1]
     print(button_key)
-    channel_id = call.message.chat.id
+    channel_id = call.message.chat.shifted_id
     post_id = call.message.message_id
     link = f"https://t.me/c/{channel_id}/{post_id}"
     await db.add_resource(button_key=button_key, url=link)
