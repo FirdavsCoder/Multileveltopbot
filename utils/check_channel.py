@@ -8,7 +8,7 @@ from loader import bot, db
 
 async def check_bot(user_id):
     myList = []
-    bots = await db.select_all_bots()
+    bots = []
     checking = False
     for x in bots:
         try:
