@@ -145,7 +145,9 @@ async def select_channel_handler(call: types.CallbackQuery):
     channel_id = call.data.split('_')[1]
     try:
         channel = await bot.get_chat(channel_id)
+        print(channel)
         count = await bot.get_chat_member_count(channel_id)
+        print(count)
         if count > 1000:
             count = f'{round(count / 1000, 1)}K'
     except Exception as err:
@@ -177,7 +179,7 @@ async def delete_channel_handler(call: types.CallbackQuery):
                            state='*')
 async def delete_channel_handler(call: types.CallbackQuery):
     channel_id = call.data.replace('delete_channel_', '')
-    await db.delete_channel(channel_id=channel_id)
+    await db.delete_channel(channel_id=int(channel_id))
     await call.message.edit_text("KANAL OCHIRILDI!", reply_markup=await adminKeyboard.channel_settings())
 
 
@@ -290,7 +292,7 @@ async def channel_id_handler(message: types.Message, state: FSMContext):
                              reply_markup=types.InlineKeyboardMarkup().add(
                                  types.InlineKeyboardButton(text='⬅️ Ortga', callback_data='channels')))
         return
-    result = await db.select_channels(channel_id=str(channel_id))
+    result = await db.select_channels(channel_id=channel_id)
     if not result:
         await message.answer(text="Yaxshi endi kanal linkni yuboring!")
         await state.update_data(id=channel.id)
@@ -324,7 +326,7 @@ async def channel_link_handler(message: types.Message, state: FSMContext):
                                  types.InlineKeyboardButton(text='⬅️ Ortga', callback_data='channels')))
         return
 
-    result = await db.add_channel(channel_id=str(channel_id), channel_link=message.text)
+    result = await db.add_channel(channel_id=channel_id, channel_link=message.text)
     if result:
         await message.answer('<b>Kanal qo\'shildi:</b> <a href="{}">{}</a>'.format(channel_link, channel_title),
                              parse_mode='html', reply_markup=types.InlineKeyboardMarkup().add(
