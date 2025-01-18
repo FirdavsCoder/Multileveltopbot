@@ -20,7 +20,7 @@ class AdminKeyboards():
         keyboard.row(InlineKeyboardButton(text='🔼', callback_data='close'))
         return keyboard
 
-    async def buttons_edit(self):
+    async def buttons_edit(self, callback_data):
         keyboard = InlineKeyboardMarkup(row_width=2)
         buttons = await db.select_all_buttons()
 
@@ -32,7 +32,7 @@ class AdminKeyboards():
             text = button['text']
             if text.isdigit() and len(text) == 4:  # Yil bo'lishi (masalan, 2023)
                 year_buttons.append(
-                    InlineKeyboardButton(text=text, callback_data=f'button_edit:{button["key"]}')
+                    InlineKeyboardButton(text=text, callback_data=f'{callback_data}:{button["key"]}')
                 )
             elif text in ["Listening", "Writing", "Speaking", "Reading"]:  # Maxsus qobiliyat tugmalari
                 skill_buttons.append(
@@ -50,8 +50,9 @@ class AdminKeyboards():
         for i in range(0, len(other_buttons), 2):
             keyboard.row(*other_buttons[i:i + 2])
 
-        keyboard.row(InlineKeyboardButton(text="➕ Tugma qo'shish", callback_data="add_button"))
-        keyboard.row(InlineKeyboardButton(text='🔙 Orqaga', callback_data='panel'))
+        if callback_data == 'buttons_edit':
+            keyboard.row(InlineKeyboardButton(text="➕ Tugma qo'shish", callback_data="add_button"))
+            keyboard.row(InlineKeyboardButton(text='🔙 Orqaga', callback_data='panel'))
 
         return keyboard
 
