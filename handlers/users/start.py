@@ -1,3 +1,5 @@
+import asyncio
+
 import asyncpg
 from aiogram import types
 from aiogram.dispatcher import FSMContext
@@ -26,11 +28,19 @@ async def bot_echo(message: types.Message, state: FSMContext):
         if data_res:
             for i in data_res:
                 data_t = i['url'].split('/')
-                await bot.copy_message(
-                    chat_id=message.from_user.id,
-                    from_chat_id=f"-100{data_t[4]}",
-                    message_id=data_t[5]
-                )
+                channel_id = ''
+                if data_t[4].startswith('-100') : channel_id = data_t[4]
+                else: channel_id = f"-100{data_t[4]}"
+                print(data_t)
+                try:
+                    await bot.copy_message(
+                        chat_id=message.from_user.id,
+                        from_chat_id=channel_id,
+                        message_id=data_t[5]
+                    )
+                    await asyncio.sleep(0.4)
+                except Exception as e:
+                    print(f"Exception in bot_echo: {e}")
         else: await message.answer("No data found for this button")
         if message.text == "📑 Real Exam Questions":
             await message.answer("Choose the option you want to see:", reply_markup=real_exam_btn)
