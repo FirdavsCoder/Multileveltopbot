@@ -10,6 +10,7 @@ from aiogram.dispatcher.filters.builtin import Command
 from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.types import InputMediaDocument, InputFile
 from aiogram.utils import exceptions
+import emoji
 
 from data.config import ADMINS, MESSAGE_SENDER_COMMAND, DATABASE_INFO
 from handlers.admin.key import adminKeyboard
@@ -689,6 +690,10 @@ async def add_button_handler(call: types.CallbackQuery, state: FSMContext):
 
 @dp.message_handler(state=AddButtonState.button_key, content_types=types.ContentTypes.TEXT)
 async def get_button_key(message: types.Message, state: FSMContext):
+    has_space_in_message = ' ' in message.text or message.text.startswith('/')
+    if has_space_in_message:
+        await message.answer("Tugma keyda probel, command va emoji bo'lishi mumkin emas, qayta urinib ko'ring.")
+        return
     data = await db.select_button(key=message.text)
     if data:
         await message.answer("Bu tugma avval qo'shilgan, boshqa key bilan sinab ko'ring.", reply_markup=adminKeyboard.back_panel())

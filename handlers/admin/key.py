@@ -36,11 +36,11 @@ class AdminKeyboards():
                 )
             elif text in ["Listening", "Writing", "Speaking", "Reading"]:  # Maxsus qobiliyat tugmalari
                 skill_buttons.append(
-                    InlineKeyboardButton(text=text, callback_data=f'button_edit:{button["key"]}')
+                    InlineKeyboardButton(text=text, callback_data=f'{callback_data}:{button["key"]}')
                 )
             else:
                 other_buttons.append(
-                    InlineKeyboardButton(text=text, callback_data=f'button_edit:{button["key"]}')
+                    InlineKeyboardButton(text=text, callback_data=f'{callback_data}:{button["key"]}')
                 )
 
         if year_buttons:
@@ -50,7 +50,7 @@ class AdminKeyboards():
         for i in range(0, len(other_buttons), 2):
             keyboard.row(*other_buttons[i:i + 2])
 
-        if callback_data == 'buttons_edit':
+        if callback_data == 'button_edit':
             keyboard.row(InlineKeyboardButton(text="➕ Tugma qo'shish", callback_data="add_button"))
             keyboard.row(InlineKeyboardButton(text='🔙 Orqaga', callback_data='panel'))
 
