@@ -17,7 +17,7 @@ async def bot_start(message: types.Message):
 
 🕹️ Botdagi ma’lumotlardan foydalanish uchun kerakli bo’limni tanlang!    
 """
-    await message.answer(f"👋 <b>{text}</b> {message.from_user.get_mention(as_html=True)}!", reply_markup=main_menu)
+    await message.answer(text, reply_markup=main_menu)
 
 
 @dp.message_handler(text="🔙 Orqaga")
