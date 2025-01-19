@@ -60,6 +60,8 @@ async def check_channel(user_id):
         keyboard.add(*check_bots)
         text = "<b>❌ Kechirasiz botimizdan foydalanishdan oldin ushbu kanallar va botlarga a'zo bo'lishingiz kerak.</b>"
     if checking:
+        keyboard.row(types.InlineKeyboardButton(text="Multi-Level Top CEFR", url='https://youtube.com/@multileveltop'))
+        keyboard.row(types.InlineKeyboardButton(text="Mokhida Khakimova", url='https://www.instagram.com/mokhida_khakimova/'))
         keyboard.row(types.InlineKeyboardButton(text="✅ Tasdiqlash", callback_data=f'check_channel'))
         return text, keyboard
     else:
