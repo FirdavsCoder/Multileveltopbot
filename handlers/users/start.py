@@ -15,7 +15,7 @@ from data.config import ADMINS
 async def bot_start(message: types.Message):
     inline_kb = types.InlineKeyboardMarkup()
     inline_kb.add(types.InlineKeyboardButton(text="📑 Real Exam Questions", url="<a src='https://t.me/+-SKxA9kZUMlkNWQy'>link<\a>"))
-    await message.answer("Main menu", reply_markup=inline_kb)
+    await message.answer("Main menu", reply_markup=inline_kb, parse_mode="HTML")
 
 
 @dp.message_handler(CommandStart())
